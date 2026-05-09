@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
 import { useAuth } from "../auth/AuthContext";
-import { getRecommendation, getMostCommon } from "./recommendations";
+import { getRecommendation, getMostCommon } from "./Recommendations";
 
 export default function Dashboard() {
   const { user } = useAuth();
