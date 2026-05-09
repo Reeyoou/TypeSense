@@ -32,7 +32,7 @@ body {
 }
 
 .typing-page {
-  min-height: 100vh;
+  min-height: 100dvh;
   cursor: text;
 }
 
@@ -145,9 +145,17 @@ button:hover {
 }
 
 .hidden-input {
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
   opacity: 0;
-  pointer-events: none;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: transparent;
+  caret-color: transparent;
 }
 
 .result-card {
@@ -344,12 +352,37 @@ button:hover {
 /* Responsive */
 
 @media (max-width: 700px) {
+  .typing-page {
+    padding: 24px 18px;
+  }
+
+  .top-bar {
+    margin-bottom: 28px;
+  }
+
   .stats {
     grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 28px;
+  }
+
+  .typing-box {
+    max-height: 42dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .words {
     font-size: 22px;
+    line-height: 1.7;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+    padding: 18px;
+  }
+
+  .nav button {
+    margin-left: 0;
   }
 
   .dashboard .stats {
