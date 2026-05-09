@@ -164,6 +164,11 @@ export default function TypingTest() {
           disabled={finished}
           className="hidden-input"
           autoFocus
+          autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="none"
+          spellCheck={false}
+          inputMode="text"
         />
       </section>
 
