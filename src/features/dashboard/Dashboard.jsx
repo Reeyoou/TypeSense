@@ -63,10 +63,8 @@ export default function Dashboard() {
     sessions.length === 0
       ? "0.0"
       : (
-          sessions.reduce(
-            (sum, session) => sum + Number(session.accuracy),
-            0
-          ) / sessions.length
+          sessions.reduce((sum, session) => sum + Number(session.accuracy), 0) /
+          sessions.length
         ).toFixed(1);
 
   const recommendation = getRecommendation(sessions, mistakes);
@@ -139,6 +137,7 @@ export default function Dashboard() {
         <thead>
           <tr>
             <th>Date</th>
+            <th>Time</th>
             <th>WPM</th>
             <th>Accuracy</th>
             <th>Duration</th>
@@ -148,12 +147,18 @@ export default function Dashboard() {
         <tbody>
           {sessions.length === 0 ? (
             <tr>
-              <td colSpan="4">No tests completed yet.</td>
+              <td colSpan="5">No tests completed yet.</td>
             </tr>
           ) : (
             sessions.map((session) => (
               <tr key={session.id}>
                 <td>{new Date(session.created_at).toLocaleDateString()}</td>
+                <td>
+                  {new Date(session.created_at).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </td>
                 <td>{Number(session.wpm).toFixed(1)}</td>
                 <td>{Number(session.accuracy).toFixed(1)}%</td>
                 <td>{session.duration_seconds}s</td>
