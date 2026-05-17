@@ -5,6 +5,7 @@ const DEFAULT_RECOMMENDATION = {
   message:
     "Take a typing test first so TypeSense can start learning your speed, accuracy, and weak spots.",
   focus: "Start with a 30-second test.",
+  href: "/test?duration=30",
 };
 
 export function getDefaultRecommendation() {

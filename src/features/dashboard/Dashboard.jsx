@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
 import { useAuth } from "../auth/AuthContext";
+import { Link } from "react-router-dom";
 import {
   getDefaultRecommendation,
   getMostCommon,
@@ -142,7 +143,13 @@ export default function Dashboard() {
           <>
             <h2>{recommendation.title}</h2>
             <p>{recommendation.message}</p>
-            <strong>{recommendation.focus}</strong>
+            {recommendation.href ? (
+              <strong>
+                <Link to={recommendation.href}>{recommendation.focus}</Link>
+              </strong>
+            ) : (
+              <strong>{recommendation.focus}</strong>
+            )}
           </>
         )}
       </section>
