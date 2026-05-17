@@ -7,12 +7,18 @@ export default function Register() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
 
   async function handleRegister(e) {
     e.preventDefault();
     setMessage("");
+
+    if (password !== confirmPassword) {
+      setMessage("Passwords do not match.");
+      return;
+    }
 
     const { data, error } = await supabase.auth.signUp({
       email,
@@ -25,10 +31,15 @@ export default function Register() {
     }
 
     if (data.user) {
-      await supabase.from("profiles").insert({
+      const { error: profileError } = await supabase.from("profiles").insert({
         id: data.user.id,
         username,
       });
+
+      if (profileError) {
+        setMessage(profileError.message);
+        return;
+      }
     }
 
     setMessage("Account created. Check your email if confirmation is enabled.");
@@ -58,6 +69,13 @@ export default function Register() {
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+      />
+
+      <input
+        type="password"
+        placeholder="Confirm password"
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
       />
 
       <button type="submit">Create account</button>
