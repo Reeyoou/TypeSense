@@ -577,3 +577,19 @@ button:hover {
     width: 100%;
   }
 }
+
+.rank-number {
+  font-weight: 700;
+}
+
+.rank-gold {
+  color: #d4af37;
+}
+
+.rank-silver {
+  color: #9ca3af;
+}
+
+.rank-bronze {
+  color: #cd7f32;
+}

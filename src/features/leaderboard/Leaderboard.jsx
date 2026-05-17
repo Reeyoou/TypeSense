@@ -77,6 +77,13 @@ export default function Leaderboard() {
     );
   }
 
+  function getRankClass(index) {
+    if (index === 0) return "rank-gold";
+    if (index === 1) return "rank-silver";
+    if (index === 2) return "rank-bronze";
+    return "";
+  }
+
   return (
     <main className="leaderboard">
       <div className="leaderboard-header">
@@ -136,7 +143,11 @@ export default function Leaderboard() {
                     key={row.user_id}
                     className={isCurrentUser ? "current-user-row" : ""}
                   >
-                    <td>#{index + 1}</td>
+                    <td>
+                      <span className={`rank-number ${getRankClass(index)}`}>
+                        #{index + 1}
+                      </span>
+                    </td>
                     <td>{row.profiles?.username || "User"}</td>
                     <td>{Number(row.max_wpm).toFixed(1)}</td>
                     <td>{Number(row.average_wpm).toFixed(1)}</td>
