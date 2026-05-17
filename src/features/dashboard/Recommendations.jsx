@@ -83,7 +83,7 @@ export async function getOrCreateRecommendation({
   const { error: deleteError } = await supabase
   .from("recommendations")
   .delete()
-  .in("user_id", userId);
+  .eq("user_id", userId);
 
   if (deleteError) {
     throw deleteError;
