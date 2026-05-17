@@ -73,7 +73,6 @@ TypeSense/
 - Replace rule-based recommendations with AI-powered feedback ✔
 - Analyze long-term typing patterns
 - Detect weak letters, weak words, and slow character combinations
-- Generate personalized practice suggestions
 - Provide weekly improvement summaries
 
 ### 📱 Mobile Improvements
@@ -81,10 +80,9 @@ TypeSense/
 - Mobile dashboard support
 
 ### 🏆 Social Features
-- Public leaderboards
+- Public leaderboards ✔
 - Friends leaderboard
 - Shareable typing results
-- Personal best rankings
 
 ### 📈 Progress Graphs
 - WPM progress graph

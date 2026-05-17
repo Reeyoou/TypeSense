@@ -45,6 +45,8 @@ export default function Leaderboard() {
           );
 
           setUserRank(currentUserIndex === -1 ? null : currentUserIndex + 1);
+        } else {
+          setUserRank(null);
         }
       } catch (error) {
         console.error("Error loading leaderboard:", error.message);
@@ -83,12 +85,10 @@ export default function Leaderboard() {
           <p>See how you rank against other TypeSense users.</p>
         </div>
 
-        {user && (
-          <div className="leaderboard-rank">
-            <span>Your rank</span>
-            <strong>{userRank ? `#${userRank}` : "Not ranked yet"}</strong>
-          </div>
-        )}
+        <div className="leaderboard-rank">
+          <span>Your rank</span>
+          <strong>{userRank ? `#${userRank}` : "-"}</strong>
+        </div>
       </div>
 
       <div className="leaderboard-toggle">
@@ -137,11 +137,7 @@ export default function Leaderboard() {
                     className={isCurrentUser ? "current-user-row" : ""}
                   >
                     <td>#{index + 1}</td>
-                    <td>
-                      {isCurrentUser
-                        ? row.profiles?.username || "You"
-                        : row.profiles?.username || "User"}
-                    </td>
+                    <td>{row.profiles?.username || "User"}</td>
                     <td>{Number(row.max_wpm).toFixed(1)}</td>
                     <td>{Number(row.average_wpm).toFixed(1)}</td>
                     <td>{Number(row.average_accuracy).toFixed(1)}%</td>
