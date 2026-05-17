@@ -21,6 +21,7 @@ A web-based typing practice application that helps users improve their typing sp
 ### 📊 Dashboard
 
 - Average WPM & Accuracy
+- Max WPM
 - Recent test history
 - Weak letter and weak word insights
 - Personalized recommendation using Mistral AI
@@ -54,9 +55,9 @@ TypeSense/
 │   └── styles/
 │       └── index.css
 ├── supabase/
-│   ├── functions/
-│   │   ├── recommendations/
-│   │   │   ├── index.ts
+│   └── functions/
+│       └── recommendations/
+│           └──  index.ts
 ├── index.html
 ├── package.json
 ├── .env.example

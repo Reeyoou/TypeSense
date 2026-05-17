@@ -80,6 +80,11 @@ export default function Dashboard() {
       </main>
     );
   }
+  
+  const maxWpm =
+    sessions.length === 0
+      ? "0.0"
+      : Math.max(...sessions.map((session) => Number(session.wpm))).toFixed(1);
 
   const averageWpm =
     sessions.length === 0
@@ -105,6 +110,11 @@ export default function Dashboard() {
       <h1>Dashboard</h1>
 
       <div className="stats">
+        <div>
+          <span>max wpm</span>
+          <strong>{maxWpm}</strong>
+        </div>
+
         <div>
           <span>average wpm</span>
           <strong>{averageWpm}</strong>
