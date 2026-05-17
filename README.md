@@ -33,7 +33,6 @@ A web-based typing practice application that helps users improve their typing sp
 ```txt
 TypeSense/
 ├── src/
-│   ├── App.css
 │   ├── App.jsx
 │   ├── main.jsx
 │   ├── assets/
@@ -45,6 +44,8 @@ TypeSense/
 │   │   ├── dashboard/
 │   │   │   ├── Dashboard.jsx
 │   │   │   └── Recommendations.js
+│   │   ├── leaderboard/
+│   │   │   └── Leaderboard.jsx
 │   │   └── typing/
 │   │       ├── Stats.jsx
 │   │       ├── TypingTest.jsx
