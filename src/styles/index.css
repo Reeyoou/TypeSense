@@ -95,7 +95,7 @@ button:hover {
 
 .stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   margin-bottom: 48px;
 }
@@ -394,6 +394,10 @@ button:hover {
     overflow-x: auto;
     white-space: nowrap;
   }
+  
+  .insights-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .recommendation-card strong {
@@ -446,10 +450,4 @@ button:hover {
 .insight-row strong {
   color: var(--accent);
   font-size: 14px;
-}
-
-@media (max-width: 700px) {
-  .insights-grid {
-    grid-template-columns: 1fr;
-  }
 }
