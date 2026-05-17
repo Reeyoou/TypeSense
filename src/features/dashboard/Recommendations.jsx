@@ -80,6 +80,15 @@ export async function getOrCreateRecommendation({
     mistakes,
   });
 
+  const { error: deleteError } = await supabase
+  .from("recommendations")
+  .delete()
+  .eq("user_id", userId);
+
+  if (deleteError) {
+    throw deleteError;
+  }
+
   const { error: insertError } = await supabase.from("recommendations").insert({
     user_id: userId,
     source_session_id: latestSession.id,
