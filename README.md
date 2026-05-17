@@ -23,7 +23,7 @@ A web-based typing practice application that helps users improve their typing sp
 - Average WPM & Accuracy
 - Recent test history
 - Weak letter and weak word insights
-- Personalized recommendation card
+- Personalized recommendation using Mistral AI
 
 ---
 
@@ -32,6 +32,7 @@ A web-based typing practice application that helps users improve their typing sp
 ```txt
 TypeSense/
 ├── src/
+│   ├── App.css
 │   ├── App.jsx
 │   ├── main.jsx
 │   ├── assets/
@@ -42,7 +43,7 @@ TypeSense/
 │   │   │   └── Register.jsx
 │   │   ├── dashboard/
 │   │   │   ├── Dashboard.jsx
-│   │   │   └── recommendations.js
+│   │   │   └── Recommendations.js
 │   │   └── typing/
 │   │       ├── Stats.jsx
 │   │       ├── TypingTest.jsx
@@ -52,16 +53,22 @@ TypeSense/
 │   │   └── supabase.js
 │   └── styles/
 │       └── index.css
+├── supabase/
+│   ├── functions/
+│   │   ├── recommendations/
+│   │   │   ├── index.ts
 ├── index.html
 ├── package.json
+├── .env.example
 ├── vite.config.js
+├── vercel.json
 └── README.md
 ```
 
 ## 🗺️ Roadmap 
 
 ### 🤖 AI Recommendations
-- Replace rule-based recommendations with AI-powered feedback
+- Replace rule-based recommendations with AI-powered feedback ✔
 - Analyze long-term typing patterns
 - Detect weak letters, weak words, and slow character combinations
 - Generate personalized practice suggestions
