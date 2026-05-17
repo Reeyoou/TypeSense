@@ -29,7 +29,7 @@ export function getMostCommon(items, key, limit = 3) {
 }
 
 async function callRecommendationApi({ sessions, mistakes }) {
-  const { data, error } = await supabase.functions.invoke("recommendation", {
+  const { data, error } = await supabase.functions.invoke("recommendations", {
     body: {
       sessions,
       mistakes,
