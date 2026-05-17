@@ -19,7 +19,8 @@ export default function Leaderboard() {
 
         const { data, error } = await supabase
           .from("user_stats")
-          .select(`
+          .select(
+            `
             user_id,
             max_wpm,
             average_wpm,
@@ -28,7 +29,8 @@ export default function Leaderboard() {
             profiles (
               username
             )
-          `)
+          `
+          )
           .order(sortBy, { ascending: false })
           .limit(50);
 
@@ -136,8 +138,9 @@ export default function Leaderboard() {
                   >
                     <td>#{index + 1}</td>
                     <td>
-                      {row.profiles?.username ||
-                        (isCurrentUser ? "You" : "Anonymous")}
+                      {isCurrentUser
+                        ? row.profiles?.username || "You"
+                        : row.profiles?.username || "User"}
                     </td>
                     <td>{Number(row.max_wpm).toFixed(1)}</td>
                     <td>{Number(row.average_wpm).toFixed(1)}</td>
