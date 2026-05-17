@@ -3,6 +3,7 @@ import TypingTest from "./features/typing/TypingTest";
 import Login from "./features/auth/Login";
 import Register from "./features/auth/Register";
 import Dashboard from "./features/dashboard/Dashboard";
+import Leaderboard from "./features/leaderboard/Leaderboard";
 import { useAuth } from "./features/auth/AuthContext";
 import { supabase } from "./lib/supabase";
 
@@ -22,6 +23,7 @@ export default function App() {
       <nav className="nav">
         <Link to="/">TypeSense</Link>
         <Link to="/dashboard">Dashboard</Link>
+        <Link to="/leaderboard">Leaderboard</Link>
 
         {user ? (
           <button onClick={handleLogout}>Logout</button>
@@ -38,6 +40,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
       </Routes>
     </BrowserRouter>
   );

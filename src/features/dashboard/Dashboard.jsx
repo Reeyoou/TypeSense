@@ -80,7 +80,7 @@ export default function Dashboard() {
       </main>
     );
   }
-  
+
   const maxWpm =
     sessions.length === 0
       ? "0.0"
@@ -111,22 +111,22 @@ export default function Dashboard() {
 
       <div className="stats">
         <div>
-          <span>max wpm</span>
+          <span>Max WPM</span>
           <strong>{maxWpm}</strong>
         </div>
 
         <div>
-          <span>average wpm</span>
+          <span>Avg WPM</span>
           <strong>{averageWpm}</strong>
         </div>
 
         <div>
-          <span>average accuracy</span>
+          <span>Avg Accuracy</span>
           <strong>{averageAccuracy}%</strong>
         </div>
 
         <div>
-          <span>tests completed</span>
+          <span>Tests Completed</span>
           <strong>{sessions.length}</strong>
         </div>
       </div>

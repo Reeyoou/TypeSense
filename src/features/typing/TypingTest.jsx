@@ -109,6 +109,8 @@ export default function TypingTest() {
       return;
     }
 
+    await updateUserStats(user.id);
+
     const mistakes = getTypingMistakes({
       typed,
       targetText,
@@ -129,6 +131,44 @@ export default function TypingTest() {
     if (mistakesError) {
       console.error("Error saving typing mistakes:", mistakesError.message);
     }
+  }
+
+  async function updateUserStats(userId) {
+    const { data: sessions, error } = await supabase
+      .from("typing_sessions")
+      .select("wpm, accuracy")
+      .eq("user_id", userId);
+  
+    if (error) throw error;
+  
+    const testsCompleted = sessions.length;
+  
+    const maxWpm =
+      testsCompleted === 0
+        ? 0
+        : Math.max(...sessions.map((session) => Number(session.wpm)));
+  
+    const averageWpm =
+      testsCompleted === 0
+        ? 0
+        : sessions.reduce((sum, session) => sum + Number(session.wpm), 0) /
+          testsCompleted;
+  
+    const averageAccuracy =
+      testsCompleted === 0
+        ? 0
+        : sessions.reduce((sum, session) => sum + Number(session.accuracy), 0) /
+          testsCompleted;
+  
+    const { error: statsError } = await supabase.from("user_stats").upsert({
+      user_id: userId,
+      max_wpm: maxWpm,
+      average_wpm: averageWpm,
+      average_accuracy: averageAccuracy,
+      tests_completed: testsCompleted,
+    });
+  
+    if (statsError) throw statsError;
   }
 
   return (

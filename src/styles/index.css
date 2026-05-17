@@ -394,7 +394,7 @@ button:hover {
     overflow-x: auto;
     white-space: nowrap;
   }
-  
+
   .insights-grid {
     grid-template-columns: 1fr;
   }
@@ -450,4 +450,37 @@ button:hover {
 .insight-row strong {
   color: var(--accent);
   font-size: 14px;
+}
+
+.leaderboard {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.leaderboard-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0 1.5rem;
+  padding: 1rem;
+  border-radius: 12px;
+  background: var(--card-bg, #ffffff);
+}
+
+.leaderboard-summary span {
+  opacity: 0.7;
+  text-transform: lowercase;
+}
+
+.leaderboard-summary strong {
+  font-size: 1.5rem;
+}
+
+.leaderboard-card {
+  overflow-x: auto;
+}
+
+.current-user-row {
+  font-weight: 700;
 }
