@@ -593,3 +593,9 @@ button:hover {
 .rank-bronze {
   color: #cd7f32;
 }
+
+.recommendation-card a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
