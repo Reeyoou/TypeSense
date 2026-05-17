@@ -1,13 +1,21 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
 import { useAuth } from "../auth/AuthContext";
-import { getRecommendation, getMostCommon } from "./Recommendations";
+import {
+  getDefaultRecommendation,
+  getMostCommon,
+  getOrCreateRecommendation,
+} from "./Recommendations";
 
 export default function Dashboard() {
   const { user } = useAuth();
 
   const [sessions, setSessions] = useState([]);
   const [mistakes, setMistakes] = useState([]);
+  const [recommendation, setRecommendation] = useState(
+    getDefaultRecommendation()
+  );
+  const [recommendationLoading, setRecommendationLoading] = useState(false);
 
   useEffect(() => {
     if (!user) return;
@@ -16,6 +24,7 @@ export default function Dashboard() {
       const { data: sessionsData, error: sessionsError } = await supabase
         .from("typing_sessions")
         .select("*")
+        .eq("user_id", user.id)
         .order("created_at", { ascending: false })
         .limit(20);
 
@@ -27,6 +36,7 @@ export default function Dashboard() {
       const { data: mistakesData, error: mistakesError } = await supabase
         .from("typing_mistakes")
         .select("*")
+        .eq("user_id", user.id)
         .order("created_at", { ascending: false })
         .limit(300);
 
@@ -35,8 +45,28 @@ export default function Dashboard() {
         return;
       }
 
-      setSessions(sessionsData ?? []);
-      setMistakes(mistakesData ?? []);
+      const loadedSessions = sessionsData ?? [];
+      const loadedMistakes = mistakesData ?? [];
+
+      setSessions(loadedSessions);
+      setMistakes(loadedMistakes);
+
+      setRecommendationLoading(true);
+
+      try {
+        const result = await getOrCreateRecommendation({
+          supabase,
+          userId: user.id,
+          sessions: loadedSessions,
+          mistakes: loadedMistakes,
+        });
+
+        setRecommendation(result);
+      } catch (error) {
+        console.error("Error loading recommendation:", error.message);
+      } finally {
+        setRecommendationLoading(false);
+      }
     }
 
     loadDashboardData();
@@ -67,8 +97,6 @@ export default function Dashboard() {
           sessions.length
         ).toFixed(1);
 
-  const recommendation = getRecommendation(sessions, mistakes);
-
   const weakLetters = getMostCommon(mistakes, "expected_char", 5);
   const weakWords = getMostCommon(mistakes, "word", 5);
 
@@ -94,9 +122,19 @@ export default function Dashboard() {
       </div>
 
       <section className="recommendation-card">
-        <h2>{recommendation.title}</h2>
-        <p>{recommendation.message}</p>
-        <strong>{recommendation.focus}</strong>
+        {recommendationLoading ? (
+          <>
+            <h2>Generating recommendation...</h2>
+            <p>TypeSense is reviewing your latest typing data.</p>
+            <strong>This will update automatically.</strong>
+          </>
+        ) : (
+          <>
+            <h2>{recommendation.title}</h2>
+            <p>{recommendation.message}</p>
+            <strong>{recommendation.focus}</strong>
+          </>
+        )}
       </section>
 
       <section className="insights-grid">
