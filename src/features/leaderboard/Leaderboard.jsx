@@ -7,6 +7,7 @@ export default function Leaderboard() {
 
   const [leaderboard, setLeaderboard] = useState([]);
   const [userRank, setUserRank] = useState(null);
+  const [sortBy, setSortBy] = useState("max_wpm");
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -28,15 +29,12 @@ export default function Leaderboard() {
               username
             )
           `)
-          .order("max_wpm", { ascending: false })
+          .order(sortBy, { ascending: false })
           .limit(50);
 
-        if (error) {
-          throw error;
-        }
+        if (error) throw error;
 
         const rows = data ?? [];
-
         setLeaderboard(rows);
 
         if (user) {
@@ -44,11 +42,7 @@ export default function Leaderboard() {
             (row) => row.user_id === user.id
           );
 
-          if (currentUserIndex !== -1) {
-            setUserRank(currentUserIndex + 1);
-          } else {
-            setUserRank(null);
-          }
+          setUserRank(currentUserIndex === -1 ? null : currentUserIndex + 1);
         }
       } catch (error) {
         console.error("Error loading leaderboard:", error.message);
@@ -59,7 +53,7 @@ export default function Leaderboard() {
     }
 
     loadLeaderboard();
-  }, [user]);
+  }, [user, sortBy]);
 
   if (loading) {
     return (
@@ -81,24 +75,40 @@ export default function Leaderboard() {
 
   return (
     <main className="leaderboard">
-      <h1>Leaderboard</h1>
+      <div className="leaderboard-header">
+        <div>
+          <h1>Leaderboard</h1>
+          <p>See how you rank against other TypeSense users.</p>
+        </div>
 
-      {user && userRank && (
-        <section className="leaderboard-summary">
-          <span>Your rank</span>
-          <strong>#{userRank}</strong>
-        </section>
-      )}
+        {user && (
+          <div className="leaderboard-rank">
+            <span>Your rank</span>
+            <strong>{userRank ? `#${userRank}` : "Not ranked yet"}</strong>
+          </div>
+        )}
+      </div>
 
-      {user && !userRank && (
-        <section className="leaderboard-summary">
-          <span>Your rank</span>
-          <strong>Not ranked yet</strong>
-        </section>
-      )}
+      <div className="leaderboard-toggle">
+        <button
+          type="button"
+          className={sortBy === "max_wpm" ? "active" : ""}
+          onClick={() => setSortBy("max_wpm")}
+        >
+          Max WPM
+        </button>
 
-      <section className="leaderboard-card">
-        <table>
+        <button
+          type="button"
+          className={sortBy === "average_wpm" ? "active" : ""}
+          onClick={() => setSortBy("average_wpm")}
+        >
+          Average WPM
+        </button>
+      </div>
+
+      <section className="leaderboard-table-card">
+        <table className="leaderboard-table">
           <thead>
             <tr>
               <th>Rank</th>

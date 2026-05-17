@@ -458,29 +458,122 @@ button:hover {
   padding: 2rem;
 }
 
-.leaderboard-summary {
+.leaderboard-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 1rem 0 1.5rem;
-  padding: 1rem;
-  border-radius: 12px;
-  background: var(--card-bg, #ffffff);
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
-.leaderboard-summary span {
-  opacity: 0.7;
-  text-transform: lowercase;
+.leaderboard-header h1 {
+  margin: 0;
 }
 
-.leaderboard-summary strong {
+.leaderboard-header p {
+  margin: 0.4rem 0 0;
+  opacity: 0.75;
+}
+
+.leaderboard-rank {
+  min-width: 160px;
+  padding: 1rem 1.25rem;
+  border-radius: 16px;
+  background: #111827;
+  color: white;
+  text-align: right;
+}
+
+.leaderboard-rank span {
+  display: block;
+  font-size: 0.8rem;
+  opacity: 0.75;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.leaderboard-rank strong {
+  display: block;
+  margin-top: 0.25rem;
   font-size: 1.5rem;
 }
 
-.leaderboard-card {
+.leaderboard-toggle {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.leaderboard-toggle button {
+  border: 1px solid #d1d5db;
+  background: transparent;
+  color: inherit;
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.leaderboard-toggle button.active {
+  background: #111827;
+  border-color: #111827;
+  color: white;
+}
+
+.leaderboard-table-card {
   overflow-x: auto;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.leaderboard-table th {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+}
+
+.leaderboard-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.leaderboard-table tbody tr:hover {
+  background: rgba(0, 0, 0, 0.03);
 }
 
 .current-user-row {
   font-weight: 700;
+  background: rgba(17, 24, 39, 0.06);
+}
+
+@media (max-width: 700px) {
+  .leaderboard-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .leaderboard-rank {
+    text-align: left;
+  }
+
+  .leaderboard-toggle {
+    flex-direction: column;
+  }
+
+  .leaderboard-toggle button {
+    width: 100%;
+  }
 }
