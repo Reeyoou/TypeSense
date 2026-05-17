@@ -26,7 +26,7 @@ A web-based typing practice application that helps users improve their typing sp
 - Weak letter and weak word insights
 - Personalized recommendation using Mistral AI
 
-### 📊 Leaderboard
+### 🥇 Leaderboard
 
 - Public Leaderboards
     - Ranked by Max WPM
