@@ -68,7 +68,7 @@ export default function TypingTest() {
 
   useEffect(() => {
     const activeChar = charRefs.current[typed.length];
-
+  
     if (!activeChar) {
       setWordsOffset(0);
       return;
@@ -79,8 +79,11 @@ export default function TypingTest() {
 
     const activeTop = activeChar.offsetTop;
     const desiredTop = lineHeight;
-    const nextOffset = Math.max(0, activeTop - desiredTop);
-
+    const shouldMove = activeTop > lineHeight * 1.5;
+    const nextOffset = shouldMove
+      ? Math.max(0, activeTop - desiredTop)
+      : 0;
+  
     setWordsOffset(nextOffset);
   }, [typed, targetText]);
 
