@@ -717,23 +717,19 @@ button:hover {
 }
 
 .words-window {
-  height: calc(3 * 2.4rem);
+  --typing-line-height: 2.8rem;
+
+  height: calc(3 * var(--typing-line-height));
   overflow: hidden;
 }
 
 .words {
-  line-height: 2.4rem;
+  line-height: var(--typing-line-height);
   transition: transform 0.12s ease;
 }
 
 @media (max-width: 600px) {
   .words-window {
-    height: calc(3 * 2.4rem);
-    overflow: hidden;
-  }
-
-  .words {
-    line-height: 2.4rem;
-    transition: transform 0.12s ease;
+    --typing-line-height: 3rem;
   }
 }
