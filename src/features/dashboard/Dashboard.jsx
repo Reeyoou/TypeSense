@@ -191,40 +191,42 @@ export default function Dashboard() {
 
       <h2>Recent tests</h2>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Time</th>
-            <th>WPM</th>
-            <th>Accuracy</th>
-            <th>Duration</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {sessions.length === 0 ? (
+      <div className="recent-tests-scroll">
+        <table>
+          <thead>
             <tr>
-              <td colSpan="5">No tests completed yet.</td>
+              <th>Date</th>
+              <th>Time</th>
+              <th>WPM</th>
+              <th>Accuracy</th>
+              <th>Duration</th>
             </tr>
-          ) : (
-            sessions.map((session) => (
-              <tr key={session.id}>
-                <td>{new Date(session.created_at).toLocaleDateString()}</td>
-                <td>
-                  {new Date(session.created_at).toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                </td>
-                <td>{Number(session.wpm).toFixed(1)}</td>
-                <td>{Number(session.accuracy).toFixed(1)}%</td>
-                <td>{session.duration_seconds}s</td>
+          </thead>
+
+          <tbody>
+            {sessions.length === 0 ? (
+              <tr>
+                <td colSpan="5">No tests completed yet.</td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            ) : (
+              sessions.map((session) => (
+                <tr key={session.id}>
+                  <td>{new Date(session.created_at).toLocaleDateString()}</td>
+                  <td>
+                    {new Date(session.created_at).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </td>
+                  <td>{Number(session.wpm).toFixed(1)}</td>
+                  <td>{Number(session.accuracy).toFixed(1)}%</td>
+                  <td>{session.duration_seconds}s</td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </main>
   );
 }

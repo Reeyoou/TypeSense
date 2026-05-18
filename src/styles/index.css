@@ -632,3 +632,33 @@ button:hover {
   border: 1px solid #ddd;
   border-radius: 12px;
 }
+
+.recent-tests-scroll {
+  --recent-test-row-height: 44px;
+  --recent-test-header-height: 44px;
+
+  max-height: calc(
+    var(--recent-test-header-height) + 
+    (var(--recent-test-row-height) * 10)
+  );
+
+  overflow-y: auto;
+  border-radius: 12px;
+}
+
+.recent-tests-scroll table {
+  width: 100%;
+}
+
+.recent-tests-scroll th,
+.recent-tests-scroll td {
+  height: var(--recent-test-row-height);
+  padding: 0 1rem;
+}
+
+.recent-tests-scroll thead th {
+  height: var(--recent-test-header-height);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}

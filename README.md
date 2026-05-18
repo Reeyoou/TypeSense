@@ -49,6 +49,7 @@ TypeSense/
 │   │   │   └── Register.jsx
 │   │   ├── dashboard/
 │   │   │   ├── Dashboard.jsx
+│   │   │   ├── Graphs.jsx
 │   │   │   └── Recommendations.js
 │   │   ├── leaderboard/
 │   │   │   └── Leaderboard.jsx
@@ -91,8 +92,8 @@ TypeSense/
 - Shareable typing results
 
 ### 📈 Progress Graphs
-- WPM progress graph
-- Accuracy progress graph
+- WPM progress graph ✔
+- Accuracy progress graph ✔
 - Mistake trend graph
 - Weak letters and weak words over time
 - Weekly improvement chart
