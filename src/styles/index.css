@@ -260,7 +260,6 @@ button:hover {
 
 .dashboard .stats span {
   margin-bottom: 10px;
-  text-transform: lowercase;
 }
 
 .dashboard .stats strong {
@@ -663,5 +662,5 @@ button:hover {
   position: sticky;
   top: 0;
   z-index: 2;
-  background: var(--card-bg);
+  background: var(--bg);
 }
