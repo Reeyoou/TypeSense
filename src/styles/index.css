@@ -73,6 +73,20 @@ button:hover {
   gap: 16px;
 }
 
+.nav-logo {
+  color: var(--muted-light);
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+}
+
 .nav a {
   color: var(--muted-light);
   text-decoration: none;
@@ -87,8 +101,55 @@ button:hover {
   background: var(--nav-hover);
 }
 
-.nav button {
+.nav-links button {
   margin-left: auto;
+}
+
+.hamburger-button {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .nav {
+    padding: 12px 16px;
+    flex-wrap: wrap;
+  }
+
+  .hamburger-button {
+    display: block;
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    color: var(--muted-light);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 6px 10px;
+  }
+
+  .nav-links {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    margin-left: 0;
+    padding-top: 8px;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links a,
+  .nav-links button {
+    width: 100%;
+    text-align: left;
+    padding: 10px 12px;
+  }
+
+  .nav-links button {
+    margin-left: 0;
+  }
 }
 
 /* Stats */
@@ -359,7 +420,7 @@ button:hover {
   }
 
   .stats {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     margin-bottom: 28px;
   }
 
@@ -372,15 +433,6 @@ button:hover {
   .words {
     font-size: 22px;
     line-height: 1.7;
-  }
-
-  .nav {
-    flex-wrap: wrap;
-    padding: 18px;
-  }
-
-  .nav button {
-    margin-left: 0;
   }
 
   .dashboard .stats {
