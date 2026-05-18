@@ -730,6 +730,6 @@ button:hover {
 
 @media (max-width: 600px) {
   .words-window {
-    --typing-line-height: 3rem;
+    --typing-line-height: 2.5rem;
   }
 }
