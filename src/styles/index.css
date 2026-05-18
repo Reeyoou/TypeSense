@@ -648,6 +648,8 @@ button:hover {
 
 .recent-tests-scroll table {
   width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
 .recent-tests-scroll th,
@@ -660,5 +662,6 @@ button:hover {
   height: var(--recent-test-header-height);
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 2;
+  background: var(--card-bg);
 }
