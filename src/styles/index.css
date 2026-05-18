@@ -310,7 +310,6 @@ button:hover {
   color: var(--muted);
   font-size: 14px;
   font-weight: 500;
-  text-transform: lowercase;
 }
 
 .dashboard td {
