@@ -78,6 +78,13 @@ button:hover {
   text-decoration: none;
   font-size: 18px;
   font-weight: 700;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.nav-logo:hover {
+  color: var(--accent);
+  background: var(--nav-hover);
 }
 
 .nav-links {
@@ -87,7 +94,7 @@ button:hover {
   margin-left: auto;
 }
 
-.nav a {
+.nav-links a {
   color: var(--muted-light);
   text-decoration: none;
   font-size: 15px;
@@ -96,7 +103,7 @@ button:hover {
   transition: 0.2s ease;
 }
 
-.nav a:hover {
+.nav-links a:hover {
   color: var(--accent);
   background: var(--nav-hover);
 }
@@ -107,49 +114,6 @@ button:hover {
 
 .hamburger-button {
   display: none;
-}
-
-@media (max-width: 700px) {
-  .nav {
-    padding: 12px 16px;
-    flex-wrap: wrap;
-  }
-
-  .hamburger-button {
-    display: block;
-    margin-left: auto;
-    background: transparent;
-    border: none;
-    color: var(--muted-light);
-    font-size: 24px;
-    cursor: pointer;
-    padding: 6px 10px;
-  }
-
-  .nav-links {
-    display: none;
-    width: 100%;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-    margin-left: 0;
-    padding-top: 8px;
-  }
-
-  .nav-links.open {
-    display: flex;
-  }
-
-  .nav-links a,
-  .nav-links button {
-    width: 100%;
-    text-align: left;
-    padding: 10px 12px;
-  }
-
-  .nav-links button {
-    margin-left: 0;
-  }
 }
 
 /* Stats */
@@ -185,9 +149,17 @@ button:hover {
   position: relative;
 }
 
+.words-window {
+  --typing-line-height: 2.8rem;
+
+  height: calc(3 * var(--typing-line-height));
+  overflow: hidden;
+}
+
 .words {
+  line-height: var(--typing-line-height);
+  transition: transform 0.12s ease;
   font-size: 28px;
-  line-height: 1.8;
   color: #555;
   user-select: none;
 }
@@ -347,6 +319,19 @@ button:hover {
   line-height: 1.6;
 }
 
+.recommendation-card strong {
+  display: block;
+  margin-top: 16px;
+  color: var(--accent);
+  font-size: 15px;
+}
+
+.recommendation-card a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .dashboard table {
   width: 100%;
   border-collapse: collapse;
@@ -394,68 +379,7 @@ button:hover {
   color: #aaa;
 }
 
-/* Animations */
-
-@keyframes blink {
-  0%,
-  50% {
-    border-color: var(--accent);
-  }
-
-  51%,
-  100% {
-    border-color: transparent;
-  }
-}
-
-/* Responsive */
-
-@media (max-width: 700px) {
-  .typing-page {
-    padding: 24px 18px;
-  }
-
-  .top-bar {
-    margin-bottom: 28px;
-  }
-
-  .stats {
-    grid-template-columns: repeat(3, 1fr);
-    margin-bottom: 28px;
-  }
-
-  .typing-box {
-    max-height: 42dvh;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-  }
-
-  .words {
-    font-size: 22px;
-    line-height: 1.7;
-  }
-
-  .dashboard .stats {
-    grid-template-columns: 1fr;
-  }
-
-  .dashboard table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-
-  .insights-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.recommendation-card strong {
-  display: block;
-  margin-top: 16px;
-  color: var(--accent);
-  font-size: 15px;
-}
+/* Insights */
 
 .insights-grid {
   display: grid;
@@ -501,6 +425,78 @@ button:hover {
   color: var(--accent);
   font-size: 14px;
 }
+
+/* Graphs */
+
+.dashboard-graphs {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.graph-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.graph-buttons button {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+.graph-buttons button.active {
+  font-weight: 700;
+  border-color: currentColor;
+}
+
+.graph-card {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+}
+
+/* Recent tests */
+
+.recent-tests-scroll {
+  --recent-test-row-height: 44px;
+  --recent-test-header-height: 44px;
+
+  max-height: calc(
+    var(--recent-test-header-height) + 
+    (var(--recent-test-row-height) * 10)
+  );
+
+  overflow: auto;
+  border-radius: 12px;
+}
+
+.recent-tests-scroll table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.recent-tests-scroll th,
+.recent-tests-scroll td {
+  height: var(--recent-test-row-height);
+  padding: 0 1rem;
+}
+
+.recent-tests-scroll thead th {
+  height: var(--recent-test-header-height);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--bg);
+}
+
+/* Leaderboard */
 
 .leaderboard {
   width: min(1100px, 100%);
@@ -609,25 +605,6 @@ button:hover {
   background: rgba(17, 24, 39, 0.06);
 }
 
-@media (max-width: 700px) {
-  .leaderboard-header {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .leaderboard-rank {
-    text-align: left;
-  }
-
-  .leaderboard-toggle {
-    flex-direction: column;
-  }
-
-  .leaderboard-toggle button {
-    width: 100%;
-  }
-}
-
 .rank-number {
   font-weight: 700;
 }
@@ -644,92 +621,120 @@ button:hover {
   color: #cd7f32;
 }
 
-.recommendation-card a {
-  color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 3px;
+/* Animations */
+
+@keyframes blink {
+  0%,
+  50% {
+    border-color: var(--accent);
+  }
+
+  51%,
+  100% {
+    border-color: transparent;
+  }
 }
 
-.dashboard-graphs {
-  display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 1rem;
-  align-items: start;
-}
+/* Responsive */
 
-.graph-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
+@media (max-width: 700px) {
+  .nav {
+    padding: 12px 16px;
+    flex-wrap: wrap;
+  }
 
-.graph-buttons button {
-  padding: 0.75rem 1rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background: transparent;
-  cursor: pointer;
-  text-align: left;
-}
+  .hamburger-button {
+    display: block;
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    color: var(--muted-light);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 6px 10px;
+  }
 
-.graph-buttons button.active {
-  font-weight: 700;
-  border-color: currentColor;
-}
+  .nav-links {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    margin-left: 0;
+    padding-top: 8px;
+  }
 
-.graph-card {
-  padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-}
+  .nav-links.open {
+    display: flex;
+  }
 
-.recent-tests-scroll {
-  --recent-test-row-height: 44px;
-  --recent-test-header-height: 44px;
+  .nav-links a,
+  .nav-links button {
+    width: 100%;
+    text-align: left;
+    padding: 10px 12px;
+  }
 
-  max-height: calc(
-    var(--recent-test-header-height) + 
-    (var(--recent-test-row-height) * 10)
-  );
+  .nav-links button {
+    margin-left: 0;
+  }
 
-  overflow-y: auto;
-  border-radius: 12px;
-}
+  .typing-page {
+    padding: 24px 18px;
+  }
 
-.recent-tests-scroll table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-}
+  .top-bar {
+    margin-bottom: 28px;
+  }
 
-.recent-tests-scroll th,
-.recent-tests-scroll td {
-  height: var(--recent-test-row-height);
-  padding: 0 1rem;
-}
+  .stats {
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 28px;
+  }
 
-.recent-tests-scroll thead th {
-  height: var(--recent-test-header-height);
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  background: var(--bg);
-}
-
-.words-window {
-  --typing-line-height: 2.8rem;
-
-  height: calc(3 * var(--typing-line-height));
-  overflow: hidden;
-}
-
-.words {
-  line-height: var(--typing-line-height);
-  transition: transform 0.12s ease;
-}
-
-@media (max-width: 600px) {
   .words-window {
     --typing-line-height: 2.5rem;
+  }
+
+  .words {
+    font-size: 22px;
+  }
+
+  .dashboard .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .insights-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-graphs {
+    grid-template-columns: 1fr;
+  }
+
+  .graph-buttons {
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .graph-buttons button {
+    white-space: nowrap;
+  }
+
+  .leaderboard-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .leaderboard-rank {
+    text-align: left;
+  }
+
+  .leaderboard-toggle {
+    flex-direction: column;
+  }
+
+  .leaderboard-toggle button {
+    width: 100%;
   }
 }
