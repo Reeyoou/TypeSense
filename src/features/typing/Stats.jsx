@@ -2,17 +2,17 @@ export default function Stats({ timeLeft, wpm, accuracy }) {
     return (
       <div className="stats">
         <div>
-          <span>time</span>
+          <span>Time</span>
           <strong>{timeLeft}s</strong>
         </div>
   
         <div>
-          <span>wpm</span>
+          <span>WPM</span>
           <strong>{wpm}</strong>
         </div>
   
         <div>
-          <span>accuracy</span>
+          <span>Accuracy</span>
           <strong>{accuracy}%</strong>
         </div>
       </div>
