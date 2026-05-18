@@ -23,6 +23,9 @@ export default function TypingTest() {
   const { user } = useAuth();
 
   const inputRef = useRef(null);
+  const wordsWindowRef = useRef(null);
+  const charRefs = useRef([]);
+  const [wordsOffset, setWordsOffset] = useState(0);
 
   const targetText = useMemo(() => words.join(" "), [words]);
 
@@ -62,6 +65,24 @@ export default function TypingTest() {
 
     saveResult();
   }, [finished, saved, user]);
+
+  useEffect(() => {
+    const activeChar = charRefs.current[typed.length];
+
+    if (!activeChar) {
+      setWordsOffset(0);
+      return;
+    }
+    const lineHeight = parseFloat(
+      window.getComputedStyle(activeChar).lineHeight
+    );
+
+    const activeTop = activeChar.offsetTop;
+    const desiredTop = lineHeight;
+    const nextOffset = Math.max(0, activeTop - desiredTop);
+
+    setWordsOffset(nextOffset);
+  }, [typed, targetText]);
 
   function handleChange(e) {
     if (finished) return;
@@ -138,28 +159,28 @@ export default function TypingTest() {
       .from("typing_sessions")
       .select("wpm, accuracy")
       .eq("user_id", userId);
-  
+
     if (error) throw error;
-  
+
     const testsCompleted = sessions.length;
-  
+
     const maxWpm =
       testsCompleted === 0
         ? 0
         : Math.max(...sessions.map((session) => Number(session.wpm)));
-  
+
     const averageWpm =
       testsCompleted === 0
         ? 0
         : sessions.reduce((sum, session) => sum + Number(session.wpm), 0) /
           testsCompleted;
-  
+
     const averageAccuracy =
       testsCompleted === 0
         ? 0
         : sessions.reduce((sum, session) => sum + Number(session.accuracy), 0) /
           testsCompleted;
-  
+
     const { error: statsError } = await supabase.from("user_stats").upsert({
       user_id: userId,
       max_wpm: maxWpm,
@@ -167,7 +188,7 @@ export default function TypingTest() {
       average_accuracy: averageAccuracy,
       tests_completed: testsCompleted,
     });
-  
+
     if (statsError) throw statsError;
   }
 
@@ -181,20 +202,30 @@ export default function TypingTest() {
       <Stats timeLeft={timeLeft} wpm={stats.wpm} accuracy={stats.accuracy} />
 
       <section className="typing-box">
-        <div className="words">
-          {targetText.split("").map((char, index) => (
-            <span
-              key={index}
-              className={getCharacterClassName({
-                index,
-                char,
-                typed,
-                finished,
-              })}
-            >
-              {char}
-            </span>
-          ))}
+        <div className="words-window" ref={wordsWindowRef}>
+          <div
+            className="words"
+            style={{
+              transform: `translateY(-${wordsOffset}px)`,
+            }}
+          >
+            {targetText.split("").map((char, index) => (
+              <span
+                key={index}
+                ref={(element) => {
+                  charRefs.current[index] = element;
+                }}
+                className={getCharacterClassName({
+                  index,
+                  char,
+                  typed,
+                  finished,
+                })}
+              >
+                {char}
+              </span>
+            ))}
+          </div>
         </div>
 
         <input
