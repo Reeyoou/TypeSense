@@ -599,3 +599,36 @@ button:hover {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+
+.dashboard-graphs {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.graph-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.graph-buttons button {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+.graph-buttons button.active {
+  font-weight: 700;
+  border-color: currentColor;
+}
+
+.graph-card {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+}

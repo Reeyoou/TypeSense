@@ -7,6 +7,7 @@ import {
   getMostCommon,
   getOrCreateRecommendation,
 } from "./Recommendations";
+import { DashboardGraphs } from "./Graphs";
 
 export default function Dashboard() {
   const { user } = useAuth();
@@ -131,6 +132,8 @@ export default function Dashboard() {
           <strong>{sessions.length}</strong>
         </div>
       </div>
+
+      <DashboardGraphs sessions={sessions} />
 
       <section className="recommendation-card">
         {recommendationLoading ? (
