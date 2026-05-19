@@ -1,5 +1,3 @@
-import { supabase } from "../../lib/supabase";
-
 const DEFAULT_RECOMMENDATION = {
   title: "Complete your first test",
   message:
@@ -29,8 +27,19 @@ export function getMostCommon(items, key, limit = 3) {
     .map(([value, count]) => ({ value, count }));
 }
 
-async function callRecommendationApi({ sessions, mistakes }) {
+async function callRecommendationApi({ supabase, sessions, mistakes }) {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session?.access_token) {
+    throw new Error("No active auth session for recommendation request");
+  }
+
   const { data, error } = await supabase.functions.invoke("recommendations", {
+    headers: {
+      Authorization: `Bearer ${session.access_token}`,
+    },
     body: {
       sessions,
       mistakes,
@@ -41,10 +50,15 @@ async function callRecommendationApi({ sessions, mistakes }) {
     throw error;
   }
 
+  if (!data?.title || !data?.message || !data?.focus) {
+    throw new Error("Recommendation API returned incomplete data");
+  }
+
   return {
     title: data.title,
     message: data.message,
     focus: data.focus,
+    href: data.href || "/",
   };
 }
 
@@ -77,14 +91,15 @@ export async function getOrCreateRecommendation({
   }
 
   const newRecommendation = await callRecommendationApi({
+    supabase,
     sessions,
     mistakes,
   });
 
   const { error: deleteError } = await supabase
-  .from("recommendations")
-  .delete()
-  .eq("user_id", userId);
+    .from("recommendations")
+    .delete()
+    .eq("user_id", userId);
 
   if (deleteError) {
     throw deleteError;
